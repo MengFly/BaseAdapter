@@ -38,6 +38,8 @@ import cn.mengfly.baseadapter.provider.LoadMoreListener;
  * <p>
  * 4. <b>OnItemLongClickListener</b>
  * Just like onItemClickListener, you just call the method {@link #setOnItemLongClickListener(OnItemLongClickListener)}
+ *
+ * @author mengfly
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class BaseAdapter<T>
@@ -134,6 +136,12 @@ public abstract class BaseAdapter<T>
         return list.indexOf(t);
     }
 
+    /**
+     * This method not suggest to call,
+     * Because this method cannot reflection the real data size,
+     * if you want to know the data size,
+     * instead you can call the method {@link #size()} to get real item size
+     */
     @Override
     public int getItemCount() {
         int itemCount;
@@ -150,10 +158,14 @@ public abstract class BaseAdapter<T>
         return itemCount;
     }
 
-    public int getDataCount() {
+    public int size() {
         return list.size();
     }
 
+    /**
+     * Stop loadMore, if you call this method,
+     * adapter will not load more data when the last load more end
+     */
     public void stopLoadMore() {
         loadMoreProvider.stopLoadMore();
     }
